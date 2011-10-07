@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Acsys Demo: Control 3D Cube Remotely</title>
+	<script>
+		var sessionId = '{{ session_id }}';
+	</script>
+<link rel="stylesheet" type="text/css" href="/static/css/cube.css?5" />	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	
+	<script src="http://use.typekit.com/fdb0guo.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+</head>
+<body class="experiment">
+	
+<div id="wrapper">
+<article id="viewport">	
+	<section id="cube">
+        <div>
+			<h2>The Hartford Experience</h2>
+			<img src='/static/images/2.jpg' />
+        </div>
+        <div>
+			<h2>Sikorsky</h2>
+			<img src='/static/images/1.jpg' />
+        </div>
+        <div>
+        	<h2>Hospital for Special Surgery</h2>
+			<img src='/static/images/3.jpg' />
+        </div>
+        <div>
+        	<h2>The Hartford Paralympics</h2>
+			<img src='/static/images/4.jpg' />
+        </div>
+        <div>
+			<h2>Victorinox</h2>
+			<img src='/static/images/5.jpg' />
+        </div>
+        <div>
+			<h2>Amica</h2>
+			<img src='/static/images/6.jpg' />
+        </div>
+    </section>	
+</article>
+</div>
+<div id="qrcode" style="width: 500px; padding-bottom: 200px">
+Control this cube using your phone:<br/>
+<img src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&choe=UTF-8&chld=H&chl={{ qr_url }}" />
+</div>
+		
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="/static/js/cube.js?5"></script>
+<script src="http://platform.twitter.com/widgets.js"></script>
+<script src="/static/js/jquery.periodicalupdater.js"></script>
+<script src="/static/js/jquery.updater.js"></script>
+</body>
+</html>

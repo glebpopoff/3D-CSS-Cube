@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Acsys 5K a Day</title>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		//populated from python handler
+		var currentDateParam = new Date('{{ today_date }}');
+		
+		//populated from python handler
+		var milesContainer = new Array();
+		{{ user_miles_js }}
+		
+		//populated from python handler
+		var milesHTMLContainer = new Array();
+		{{ html_miles_js }}
+		
+		//populated from python handler
+		var myAcsysUserName = '{{ my_username }}';
+
+		//populated from python handler
+		var totalAcsys5kPeople = {{ acsys_users_total_js }} + 1;	
+		
+		//populated from python handler
+		var totalPeopleContainer = new Array();
+		function populatePeopleContainer()
+		{
+			logger('populatePeopleContainer');
+			{{ acsys_users_miles_js }}
+			
+			//sort js container
+			sortPeopleContainer();
+			
+			//update leader name
+			updateLeaderName();
+		}		
+		
+		//populated by JS
+		var currentLeaderName = '';
+		
+		//populated by python
+		var milesPeopleContainer = new Array();
+		{{ acsys_people_miles_js }}
+		
+		
+	</script>
+	<!-- Global Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css" />
+	<link rel="stylesheet" href="/static/css/print.css" type="text/css" media="print" />
+	<script type="text/javascript" src="/static/scripts/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="/static/scripts/myTable.js"></script>
+	<script type="text/javascript" src="/static/scripts/myMiles.js"></script>
+	<script type="text/javascript" src="/static/scripts/acsysMiles.js"></script>
+	<script type="text/javascript" src="/static/scripts/userUsage.js"></script>
+	{% if is_potato_award %}<script type="text/javascript" src="/static/scripts/product_potato.js"></script>{% endif %}
+	
+	<!-- Favicon Path -->
+	<link rel="shortcut icon" href="/favicon.ico" />
+
+	<!--[if (gte IE 6)&(lte IE 8)]>
+	  <script type="text/javascript" src="/static/scripts/selectivizr.js"></script>
+	<![endif]--> 
+	
+	<!--[if IE 6]>
+	<link rel="stylesheet" type="text/css" href="/static/css/ie6.css">
+	<script src="/static/scripts/DD_belatedPNG.js"></script>
+	<script src="/static/scripts/acsysPNGarray.js"></script>
+	<![endif]-->
+	
+	{% if is_keyboard_cat %}
+	<style type="text/css">
+		#backgroundPopup{  
+		display:none;  
+		position:fixed;  
+		_position:absolute; /* hack for internet explorer 6*/  
+		height:100%;  
+		width:100%;  
+		top:0;  
+		left:0;  
+		background:#000000;  
+		border:1px solid #cecece;  
+		z-index:1;  
+		}
+		#popupContact{  
+		display:none;  
+		position:fixed;  
+		_position:absolute; /* hack for internet explorer 6*/  
+		height:345px;  
+		width:420px;  
+		background:#FFFFFF;  
+		border:2px solid #cecece;  
+		z-index:2;  
+		padding:12px;  
+		font-size:13px;  
+		}  
+		#popupContact h1{  
+		text-align:left;  
+		color:#6FA5FD;  
+		font-size:22px;  
+		font-weight:700;  
+		border-bottom:1px dotted #D3D3D3;  
+		padding-bottom:2px;  
+		margin-bottom:20px;  
+		}  
+		#popupContactClose{  
+		font-size:14px;  
+		line-height:14px;  
+		right:6px;  
+		top:4px;  
+		position:absolute;  
+		color:#6fa5fd;  
+		font-weight:700;  
+		display:block;  
+		}
+	</style>
+	<script type="text/javascript">
+		
+		function closePopup()
+		{  
+			$("#backgroundPopup").fadeOut("slow").delay(1000);  
+			$("#popupContact").fadeOut("slow").delay(1000);  
+		}
+	
+		$(document).ready(function(){
+			$("#backgroundPopup").css({  
+			"opacity": "0.7"  
+			});  
+			$("#backgroundPopup").fadeIn("slow");  
+			$("#popupContact").fadeIn("slow");  
+			
+			var windowWidth = document.documentElement.clientWidth;  
+			var windowHeight = document.documentElement.clientHeight;  
+			var popupHeight = $("#popupContact").height();  
+			var popupWidth = $("#popupContact").width();  
+			//centering  
+			$("#popupContact").css({  
+			"position": "absolute",  
+			"top": windowHeight/2-popupHeight/2,  
+			"left": windowWidth/2-popupWidth/2  
+			});  
+			//only need force for IE6  
+
+			$("#backgroundPopup").css({  
+			"height": windowHeight  
+			});
+			
+			$("#popupContactClose").click(function(){  
+				closePopup();  
+			});
+			
+		}); 
+	</script>
+	{% endif %}
+</head>
+
+<body>
+	{% if is_keyboard_cat %}
+		<div id="popupContact">  
+	        <a id="popupContactClose">x</a>
+	        <p id="contactArea">  
+	        	<object width="420" height="345"><param name="movie" value="http://www.youtube.com/v/J---aiyznGQ?version=3&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/J---aiyznGQ?version=3&amp;hl=en_US" type="application/x-shockwave-flash" width="420" height="345" allowscriptaccess="always" allowfullscreen="true"></embed>
+				</object>
+	       </p>  
+	    </div>  
+	    <div id="backgroundPopup"></div>	
+	{% endif %}
+	
+<a class="skipNav" href="#viewContent">Skip Navigation</a>
+
+<div class="mainContainer">
+<!-- mainContainer starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+  
+  <div class="mastHead">
+  <!-- mastHead Starts -->
+    <div class="logo"><img src="/static/images/logo.gif" width="224" height="169" alt="5K a Day for the month of October" /></div>
+    <div class="rules">
+      <h2>Here's how it works</h2>
+      <p>Click on the calendar date below, enter your miles for the day and click "Save". <br />A complete 5K is 3.1 miles. It's all on the honor system, so BE HONEST!</p>
+      <h3>Official Rules:</h3>
+      <ul>
+        <li>You must run, walk, elliptical, crawl, whatever, a 5K, five times a week for the month of October.</li>
+        <li>Core class can count as a 5K</li>
+        <li>You can walk half a 5K in the morning and half at night. Doesn't matter how you do it.</li>
+      </ul>
+    </div>
+  <!-- mastHead Ends -->
+  </div>
+  
+  <div class="homeContentContainer">
+  <!-- homeContentContainer Starts -->
+    <div class="homeContent" id="viewContnet">
+    <!-- homeContent Starts -->
+    
+      <div class="tableContainer">
+      <!-- tableContainer Starts -->
+		
+		<table cellpadding="0" cellspacing="0" border="0" id="monthtable">
+      
+      <thead>
+        <th>Week 1</th>
+        <th>Week 2</th>
+        <th>Week 3</th>
+        <th>Week 4</th>
+		<th>Week 5</th>
+      </thead>
+      
+      <tbody>
+	  <tr class="row0">
+          <td onclick="insertSelector('id-10022011', 'Sunday, 02', 'Sunday, 02')" id="id-10022011" class="{{ today_date|getCssForCalcDate:"10022011" }}">
+            <div class="position">
+              <div class="day">Sunday</div>
+              <div class="date">02</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10092011', 'Sunday, 09', 'Sunday, 09')" id="id-10092011" class="{{ today_date|getCssForCalcDate:"10092011" }}">
+            <div class="position">
+              <div class="day">Sunday</div>
+              <div class="date">09</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10162011', 'Sunday, 16', 'Sunday, 16')" id="id-10162011" class="{{ today_date|getCssForCalcDate:"10162011" }}">
+            <div class="position">
+              <div class="day">Sunday</div>
+              <div class="date">16</div>
+            </div>
+          </td>
+		  <td onclick="insertSelector('id-10232011', 'Sunday, 23', 'Sunday, 23')" id="id-10232011" class="{{ today_date|getCssForCalcDate:"10232011" }}">
+            <div class="position">
+              <div class="day">Sunday</div>
+              <div class="date">23</div>
+            </div>
+          </td>
+		  <td onclick="insertSelector('id-10302011', 'Sunday, 30', 'Sunday, 30')" id="id-10302011" class="{{ today_date|getCssForCalcDate:"10302011" }}">
+            <div class="position">
+              <div class="day">Sunday</div>
+              <div class="date">30</div>
+            </div>
+          </td>
+      </tr>
+      <tr class="row1">
+		  <td onclick="insertSelector('id-10032011', 'Monday, 03', 'Monday, 03')" id="id-10032011" class="{{ today_date|getCssForCalcDate:"10032011" }}">
+            <div class="position">
+              <div class="day">Monday</div>
+              <div class="date">03</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10102011', 'Monday, 10', 'Monday, 10')" id="id-10102011" class="{{ today_date|getCssForCalcDate:"10102011" }}">
+            <div class="position">
+              <div class="day">Monday</div>
+              <div class="date">10</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10172011', 'Monday, 17', 'Monday, 17')" id="id-10172011" class="{{ today_date|getCssForCalcDate:"10172011" }}">
+            <div class="position">
+              <div class="day">Monday</div>
+              <div class="date">17</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10242011', 'Monday, 24', 'Monday, 24')" id="id-10242011" class="{{ today_date|getCssForCalcDate:"10242011" }}">
+            <div class="position">
+              <div class="day">Monday</div>
+              <div class="date">24</div>
+            </div>
+          </td>
+		   <td onclick="insertSelector('id-10312011', 'Monday, 31', 'Monday, 31')" id="id-10312011" class="{{ today_date|getCssForCalcDate:"10302011" }}">
+            <div class="position">
+              <div class="day">Monday</div>
+              <div class="date">31</div>
+            </div>
+          </td>
+      </tr>
+      
+      <tr class="row2">
+          <td onclick="insertSelector('id-10042011', 'Tuesday, 04', 'Tuesday, 04')" id="id-10042011" class="{{ today_date|getCssForCalcDate:"10042011" }}">
+            <div class="position">
+              <div class="day">Tuesday</div>
+              <div class="date">04</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10112011', 'Tuesday, 11', 'Tuesday, 11')" id="id-10112011" class="{{ today_date|getCssForCalcDate:"10112011" }}">
+            <div class="position">
+              <div class="day">Tuesday</div>
+              <div class="date">11</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10182011', 'Tuesday, 18', 'Tuesday, 18')" id="id-10182011" class="{{ today_date|getCssForCalcDate:"10182011" }}">
+            <div class="position">
+              <div class="day">Tuesday</div>
+              <div class="date">18</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10252011', 'Tuesday, 25', 'Tuesday, 25')" id="id-10252011" class="{{ today_date|getCssForCalcDate:"10252011" }}">
+            <div class="position">
+              <div class="day">Tuesday</div>
+              <div class="date">25</div>
+            </div>
+          </td>
+		   <td class="calendar-date-future">&nbsp;</td>
+      </tr>
+      
+      <tr class="row3">
+          <td onclick="insertSelector('id-10052011', 'Wednesday, 05', 'Wednesday, 05')" id="id-10052011" class="{{ today_date|getCssForCalcDate:"10052011" }}">
+            <div class="position">
+              <div class="day">Wednesday</div>
+              <div class="date">05</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10122011', 'Wednesday, 12', 'Wednesday, 12')" id="id-10122011" class="{{ today_date|getCssForCalcDate:"10122011" }}">
+            <div class="position">
+              <div class="day">Wednesday</div>
+              <div class="date">12</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10192011', 'Wednesday, 19', 'Wednesday, 19')" id="id-10192011" class="{{ today_date|getCssForCalcDate:"10192011" }}">
+            <div class="position">
+              <div class="day">Wednesday</div>
+              <div class="date">19</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10262011', 'Wednesday, 26', 'Wednesday, 26')" id="id-10262011" class="{{ today_date|getCssForCalcDate:"10262011" }}">
+            <div class="position">
+              <div class="day">Wednesday</div>
+              <div class="date">26</div>
+            </div>
+          </td>
+		  <td class="calendar-date-future">&nbsp;</td>
+      </tr>
+      
+      <tr class="row4">
+          <td onclick="insertSelector('id-10062011', 'Thursday, 06', 'Thursday, 06')" id="id-10062011" class="{{ today_date|getCssForCalcDate:"10062011" }}">
+            <div class="position">
+              <div class="day">Thursday</div>
+              <div class="date">06</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10132011', 'Thursday, 13', 'Thursday, 13')" id="id-10132011"  class="{{ today_date|getCssForCalcDate:"10132011" }}">
+            <div class="position">
+              <div class="day">Thursday</div>
+              <div class="date">13</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10202011', 'Thursday, 20', 'Thursday, 20')" id="id-10202011" class="{{ today_date|getCssForCalcDate:"10202011" }}">
+            <div class="position">
+              <div class="day">Thursday</div>
+              <div class="date">20</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10272011', 'Thursday, 27', 'Thursday, 27')" id="id-10272011"  class="{{ today_date|getCssForCalcDate:"10272011" }}">
+            <div class="position">
+              <div class="day">Thursday</div>
+              <div class="date">27</div>
+            </div>
+          </td>
+		  <td class="calendar-date-future">&nbsp;</td>
+      </tr>
+      
+      <tr class="row5">
+          <td onclick="insertSelector('id-10072011', 'Friday, 07', 'Friday, 07')" id="id-10072011" class="{{ today_date|getCssForCalcDate:"10072011" }}">
+            <div class="position">
+              <div class="day">Friday</div>
+              <div class="date">07</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10142011', 'Friday, 14', 'Friday, 14')" id="id-10142011"  class="{{ today_date|getCssForCalcDate:"10142011" }}">
+            <div class="position">
+              <div class="day">Friday</div>
+              <div class="date">14</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10212011', 'Friday, 21', 'Friday, 21')" id="id-10212011"  class="{{ today_date|getCssForCalcDate:"10212011" }}">
+            <div class="position">
+              <div class="day">Friday</div>
+              <div class="date">21</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10282011', 'Friday, 28', 'Friday, 28')" id="id-10282011"  class="{{ today_date|getCssForCalcDate:"10282011" }}">
+            <div class="position">
+              <div class="day">Friday</div>
+              <div class="date">28</div>
+            </div>
+          </td>
+		  <td class="calendar-date-future">&nbsp;</td>
+      </tr>
+	  <tr class="row6">
+          <td onclick="insertSelector('id-10082011', 'Saturday, 08', 'Saturday, 08')" id="id-10082011" class="{{ today_date|getCssForCalcDate:"10082011" }}">
+            <div class="position">
+              <div class="day">Saturday</div>
+              <div class="date">08</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10152011', 'Saturday, 15', 'Saturday, 15')" id="id-10152011" class="{{ today_date|getCssForCalcDate:"10152011" }}">
+            <div class="position">
+              <div class="day">Saturday</div>
+              <div class="date">15</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10222011', 'Saturday, 22', 'Saturday, 22')" id="id-10222011" class="{{ today_date|getCssForCalcDate:"10222011" }}">
+            <div class="position">
+              <div class="day">Saturday</div>
+              <div class="date">22</div>
+            </div>
+          </td>
+          <td onclick="insertSelector('id-10292011', 'Saturday, 29', 'Saturday, 29')" id="id-10292011" class="{{ today_date|getCssForCalcDate:"10292011" }}">
+            <div class="position">
+              <div class="day">Saturday</div>
+              <div class="date">29</div>
+            </div>
+          </td>
+		  <td class="calendar-date-future">&nbsp;</td>
+      </tr>
+	  <tr class="totals">
+          <td><div class="total-miles" id="week1-total">0 miles</div></td>
+          <td><div class="total-miles" id="week2-total">0 miles</div></td>
+          <td><div class="total-miles" id="week3-total">0 miles</div></td>
+          <td><div class="total-miles" id="week4-total">0 miles</div></td>
+		  <td><div class="total-miles" id="week5-total">0 miles</div></td>
+      </tr>
+  
+      </tbody>
+      </table>
+	
+	  <!-- tableContainer Ends -->
+      </div>
+    
+	
+      <div class="milesContainer">
+      <!-- graphContainer Starts -->
+        <div id="my_milesgraph_div"></div>
+		<div class="acsysTotalContainer">
+        	<div class="smText">Total Miles for the Month:</div>
+            <div class="lgTotal" id="totalAcsysMiles">0.0</div> 
+			
+        </div>
+		<div class="acsysLeaderContainer">
+			<div class="smText">Current Leader:</div>
+            <div class="lgTotal" id="milesLeader"></div> 
+		</div>
+      <!-- graphContainer Ends -->
+      </div>
+      
+      <div class="graphContainer">
+      <!-- graphContainer Starts -->
+        <div id="acsys_milesgraph_div"></div>
+		<div id="user_usage_name" style="display:none;"></div>
+		<div id='user_usage_div'></div>
+      <!-- graphContainer Ends -->
+      </div>
+	  
+	  
+	  
+
+    <!-- homeContent Ends -->
+    </div>
+  <!-- homeContentContainer Ends -->
+</div>
+
+<!-- mainContainer ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		populatePeopleContainer();
+		updateTotalMiles();
+		updateHTMLDisplay();
+	});
+</script>
+
+</body>
+</html>
+

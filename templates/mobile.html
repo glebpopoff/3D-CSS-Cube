@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script src="/static/js/control.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
+	<script>
+		var sessionId = '{{ session_id }}';
+	</script>
+	<style type='text/css'>
+		#container {
+		    display: table;
+			width: 100%;
+		    }
+
+		  #row  {
+		    display: table-row;
+		    }
+
+		  #left, #right, #middle {
+		    display: table-cell;
+		    }
+	</style>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css" /> 
+	<title>Control 3D Cube Remotely</title>
+<body>
+	<div data-role="page"> 
+
+		<div data-role="header" data-position="fixed" data-theme="b"> 
+
+			<h1>Control 3D Cube</h1> 
+		</div> 
+<div data-role="content" style="text-align: center">
+	<div class="ui-grid-b">
+		<div class="ui-block-a"</div>
+		<div class="ui-block-b"><a href="#" class='simupkey'><img src='/static/images/up.png' border='0' /></a></div>
+		<div class="ui-block-c"></div>
+	</div>
+	<div class="ui-grid-b">
+		<div class="ui-block-a"><a href="#" class='simleftkey'><img src='/static/images/left.png' border='0' /></a></div>
+		<div class="ui-block-b"><a href="#" class='simdownkey'><img src='/static/images/down.png' border='0' /></a></div>
+		<div class="ui-block-c"><a href="#" class='simrightkey'><img src='/static/images/right.png' border='0' /></a></div>
+	</div>
+</div>	
+	
+</div>
+</body>
+</html>
